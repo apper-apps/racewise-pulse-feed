@@ -7,7 +7,19 @@ const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
 export const getTodaysRaces = async () => {
   await delay(300);
-  return mockRaces.map(race => ({
+  
+  // Get today's date in YYYY-MM-DD format
+  const today = new Date();
+  const todayStr = today.toISOString().split('T')[0];
+  
+  // Filter races to only include those scheduled for today
+  const todaysRaces = mockRaces.filter(race => {
+    if (!race.date) return false;
+    const raceDate = new Date(race.date).toISOString().split('T')[0];
+    return raceDate === todayStr;
+  });
+  
+  return todaysRaces.map(race => ({
     ...race,
     runners: race.runners.map(runner => ({
       ...runner,
