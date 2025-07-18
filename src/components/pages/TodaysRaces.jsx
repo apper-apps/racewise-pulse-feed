@@ -134,9 +134,9 @@ const TodaysRaces = () => {
           transition={{ duration: 0.3 }}
           className="grid grid-cols-1 lg:grid-cols-2 gap-6"
         >
-          {filteredRaces.map((race, index) => (
+{filteredRaces.map((race, index) => (
             <motion.div
-              key={race.id}
+              key={race?.id || `race-${index}`}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3, delay: index * 0.1 }}
