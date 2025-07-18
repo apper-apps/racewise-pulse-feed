@@ -8,15 +8,21 @@ const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 export const getTodaysRaces = async () => {
   await delay(300);
   
-  // Get today's date in YYYY-MM-DD format
+  // Get today's date and create dynamic race times
   const today = new Date();
   const todayStr = today.toISOString().split('T')[0];
   
-  // Filter races to only include those scheduled for today
-  const todaysRaces = mockRaces.filter(race => {
-    if (!race.date) return false;
-    const raceDate = new Date(race.date).toISOString().split('T')[0];
-    return raceDate === todayStr;
+  // Update race dates to today while preserving original time components
+  const todaysRaces = mockRaces.map(race => {
+    // Extract time from original race.time (e.g., "14:30:00Z")
+    const originalTime = race.time.split('T')[1];
+    const updatedTime = `${todayStr}T${originalTime}`;
+    
+    return {
+      ...race,
+      time: updatedTime,
+      date: todayStr
+    };
   });
   
   return todaysRaces.map(race => ({
