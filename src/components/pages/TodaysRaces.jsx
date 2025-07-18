@@ -79,9 +79,9 @@ const TodaysRaces = () => {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bebas text-racing-green">Today's Races</h1>
+<h1 className="text-3xl font-bebas text-racing-green">Today's Races</h1>
           <p className="text-gray-600 mt-1">
-            Complete race card for UK & Irish racing
+            Simulated race card for UK & Irish racing - Demo data only
           </p>
         </div>
         <Button

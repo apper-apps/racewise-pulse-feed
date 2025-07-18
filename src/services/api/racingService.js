@@ -8,24 +8,40 @@ const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 export const getTodaysRaces = async () => {
   await delay(300);
   
-  // Get today's date and create dynamic race times
+  // Get today's date and create realistic race times for today
   const today = new Date();
   const todayStr = today.toISOString().split('T')[0];
   
-  // Update race dates to today while preserving original time components
-  const todaysRaces = mockRaces.map(race => {
-    // Extract time from original race.time (e.g., "14:30:00Z")
-    const originalTime = race.time.split('T')[1];
-    const updatedTime = `${todayStr}T${originalTime}`;
+  // Generate realistic race times throughout the day (13:00 to 18:00)
+  const generateRaceTime = (index) => {
+    const baseHour = 13; // Start at 1 PM
+    const minutesPerRace = 35; // 35 minutes between races
+    const totalMinutes = baseHour * 60 + (index * minutesPerRace);
+    const hour = Math.floor(totalMinutes / 60);
+    const minute = totalMinutes % 60;
+    
+    return `${todayStr}T${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}:00Z`;
+  };
+  
+  // Create today's races with realistic scheduling
+  const todaysRaces = mockRaces.map((race, index) => {
+    const raceTime = generateRaceTime(index);
     
     return {
       ...race,
-      time: updatedTime,
-      date: todayStr
+      time: raceTime,
+      date: todayStr,
+      // Add some variation to meeting locations for realism
+      meeting: index % 2 === 0 ? race.meeting : 
+        ['Ascot', 'Cheltenham', 'Newmarket', 'York', 'Curragh', 'Leopardstown'][index % 6]
     };
   });
   
-  return todaysRaces.map(race => ({
+  // Filter races that haven't started yet (show future races)
+  const now = new Date();
+  const futureRaces = todaysRaces.filter(race => new Date(race.time) > now);
+  
+  return futureRaces.map(race => ({
     ...race,
     runners: race.runners.map(runner => ({
       ...runner,
