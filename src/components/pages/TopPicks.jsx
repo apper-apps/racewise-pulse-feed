@@ -155,9 +155,9 @@ const TopPicks = () => {
           transition={{ duration: 0.3 }}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
         >
-          {filteredPicks.map((pick, index) => (
+{filteredPicks.map((pick, index) => (
             <motion.div
-              key={pick.id}
+              key={pick.id || `pick-${index}`}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3, delay: index * 0.1 }}
