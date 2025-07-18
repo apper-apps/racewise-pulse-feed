@@ -27,14 +27,14 @@ const FilterBar = ({
             value={filters.meeting || ""}
             onChange={(e) => onFilterChange("meeting", e.target.value)}
             className="min-w-[150px]"
-          >
+>
             <option value="">All Meetings</option>
-            <option value="ascot">Ascot</option>
-            <option value="cheltenham">Cheltenham</option>
+            <option value="newbury">Newbury</option>
+            <option value="haydock">Haydock</option>
+            <option value="nottingham">Nottingham</option>
             <option value="newmarket">Newmarket</option>
-            <option value="york">York</option>
-            <option value="curragh">Curragh</option>
-            <option value="leopardstown">Leopardstown</option>
+            <option value="pontefract">Pontefract</option>
+            <option value="hamilton">Hamilton</option>
           </Select>
           
           <Select

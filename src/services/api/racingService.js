@@ -29,11 +29,10 @@ export const getTodaysRaces = async () => {
     
     return {
       ...race,
-      time: raceTime,
+time: raceTime,
       date: todayStr,
-      // Add some variation to meeting locations for realism
-      meeting: index % 2 === 0 ? race.meeting : 
-        ['Ascot', 'Cheltenham', 'Newmarket', 'York', 'Curragh', 'Leopardstown'][index % 6]
+      // Use today's actual racing venues
+      meeting: ['Newbury', 'Haydock', 'Nottingham', 'Newmarket', 'Pontefract', 'Hamilton'][index % 6]
     };
   });
   
